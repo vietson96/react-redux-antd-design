@@ -114,44 +114,83 @@ const extractStyles = new ExtractTextPlugin({
   disable: __DEV__,
 })
 
-config.module.rules.push({
-  test: /\.(sass|scss)$/,
-  loader: extractStyles.extract({
-    fallback: 'style-loader',
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          minimize: {
-            autoprefixer: {
-              add: true,
-              remove: true,
-              browsers: ['last 2 versions'],
+config.module.rules.push(
+  {
+    test: /\.(sass|scss)$/,
+    loader: extractStyles.extract({
+      fallback: 'style-loader',
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: project.sourcemaps,
+            minimize: {
+              autoprefixer: {
+                add: true,
+                remove: true,
+                browsers: ['last 2 versions'],
+              },
+              discardComments: {
+                removeAll : true,
+              },
+              discardUnused: false,
+              mergeIdents: false,
+              reduceIdents: false,
+              safe: true,
+              sourcemap: project.sourcemaps,
             },
-            discardComments: {
-              removeAll : true,
-            },
-            discardUnused: false,
-            mergeIdents: false,
-            reduceIdents: false,
-            safe: true,
-            sourcemap: project.sourcemaps,
           },
         },
-      },
-      {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: project.sourcemaps,
-          includePaths: [
-            inProjectSrc('styles'),
-          ],
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: project.sourcemaps,
+            includePaths: [
+              inProjectSrc('styles'),
+            ],
+          },
+        }
+      ],
+    })
+  },
+  {
+    test: /\.less$/,
+    loader: extractStyles.extract({
+      fallback: 'style-loader',
+      use: [
+        {
+          loader: 'css-loader',
+          options: {
+            sourceMap: project.sourcemaps,
+            minimize: {
+              autoprefixer: {
+                add: true,
+                remove: true,
+                browsers: ['last 2 versions'],
+              },
+              discardComments: {
+                removeAll : true,
+              },
+              discardUnused: false,
+              mergeIdents: false,
+              reduceIdents: false,
+              safe: true,
+              sourcemap: project.sourcemaps,
+            },
+          },
         },
-      }
-    ],
+        {
+          loader: 'less-loader',
+          options: {
+            sourceMap: project.sourcemaps,
+            includePaths: [
+              inProjectSrc('styles'),
+            ],
+          },
+        }
+      ],
+    })
   })
-})
 config.plugins.push(extractStyles)
 
 // Images

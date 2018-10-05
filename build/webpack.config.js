@@ -31,6 +31,10 @@ const config = {
     filename: __DEV__ ? '[name].js' : '[name].[chunkhash].js',
     publicPath: project.publicPath,
   },
+  // target: 'node',
+  // node: {
+  //   fs: 'empty'
+  // },
   resolve: {
     alias: {
       jquery: node_dir + '/jquery/dist/jquery.min.js',
@@ -40,7 +44,7 @@ const config = {
       morris: plugins_dir + '/morris/morris.js',
       jvectormap: plugins_dir + '/jvectormap/jquery-jvectormap-1.2.2.min.js',
       jvectormapWorld: plugins_dir + '/jvectormap/jquery-jvectormap-world-mill-en.js',
-      moment: plugins_dir + '/moment/moment.js',
+      moment: node_dir + '/moment/moment.js',
       bootstrapDatepicker: plugins_dir + '/datepicker/bootstrap-datepicker.js',
       slimscroll: plugins_dir + '/slimScroll/jquery.slimscroll.min.js',
       fastclick: plugins_dir + '/fastclick/fastclick.min.js'
@@ -144,6 +148,7 @@ config.module.rules.push(
         {
           loader: 'sass-loader',
           options: {
+            javascriptEnabled: true,
             sourceMap: project.sourcemaps,
             includePaths: [
               inProjectSrc('styles'),
@@ -154,7 +159,7 @@ config.module.rules.push(
     })
   },
   {
-    test: /\.less$/,
+    test: /\.(?:le|c)ss$/,
     loader: extractStyles.extract({
       fallback: 'style-loader',
       use: [
@@ -182,6 +187,7 @@ config.module.rules.push(
         {
           loader: 'less-loader',
           options: {
+            javascriptEnabled: true,
             sourceMap: project.sourcemaps,
             includePaths: [
               inProjectSrc('styles'),

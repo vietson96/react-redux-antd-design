@@ -1,54 +1,68 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import SignInForm from './SignInForm'
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import 'antd/dist/antd.less';
+
+import '../components/SignIn.less'
+
+const FormItem = Form.Item;
 
 class SignIn extends React.Component {
-  constructor(props) {
-    super(props)
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
   }
 
-  handleSubmit = (user) => {
-    // Do something with the form values
-    this.props.signIn(user);
-  };
-
   render() {
+    const { getFieldDecorator } = this.props.form;
     return (
-      <div className="login-box">
-        <div className="login-logo">
-          <a href="../../index2.html"><b>Admin</b>LTE</a>
-        </div>
-        {/* <!-- /.login-logo --> */}
-        <div className="login-box-body">
-          <p className="login-box-msg">Sign in to start your session</p>
-
-          <SignInForm onSubmit={this.handleSubmit} signIn={this.props.signin}/>
-
-          <div className="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="#" className="btn btn-block btn-social btn-facebook btn-flat"><i
-              className="fa fa-facebook"></i> Sign in using
-              Facebook</a>
-            <a href="#" className="btn btn-block btn-social btn-google btn-flat"><i
-              className="fa fa-google-plus"></i> Sign in using
-              Google+</a>
-          </div>
-          {/* <!-- /.social-auth-links --> */}
-
-          <a href="#">I forgot my password</a>
-          <br/>
-          <a href="register.html" className="text-center">Register a new membership</a>
-
-        </div>
-        {/* <!-- /.login-box-body --> */}
+      <Form onSubmit={this.handleSubmit} className="login-form">
+       <div className='logo'>
+        <img alt="logo" src='./public/dist/logo.svg' />
+        <span>SonANT</span>
       </div>
+        <FormItem>
+          {getFieldDecorator('userName', {
+            rules: [{ required: true, message: 'Please input your username!' }],
+          })(
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
+          })(
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('remember', {
+            valuePropName: 'checked',
+            initialValue: true,
+          })(
+            <Checkbox>Remember me</Checkbox>
+          )}
+          <a className="login-form-forgot" href="">Forgot password</a>
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            Log in
+          </Button>
+          Or <a href="">register now!</a>
+        </FormItem>
+      </Form>
     );
   }
 }
+
 
 SignIn.propTypes = {
   signin: PropTypes.object.isRequired,
   signIn: PropTypes.func.isRequired,
 }
 
-export default SignIn
+export default Form.create()(SignIn);

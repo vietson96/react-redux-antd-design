@@ -4,13 +4,13 @@ import Navigation from './Navigation.js'
 import PropTypes from 'prop-types'
 import 'antd/dist/antd.less'
 import './PageLayout.scss'
-import { Layout, Icon } from 'antd'
+import { Layout, Icon, Switch } from 'antd'
 const { Sider, Content } = Layout
 
 class PageLayout extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { collapsed: false }
+    this.state = { collapsed: false, theme: 'light' }
 
     this.handler = this.handler.bind(this)
   }
@@ -22,15 +22,31 @@ class PageLayout extends React.Component {
     })
   }
 
+  changeTheme = (value) => {
+    this.setState({
+      theme: value ? 'dark' : 'light',
+    });
+  }
+
   render () {
     return (
       <Layout style={{ height: '100%' }}>
         <Sider
+          theme = {this.state.theme}
           trigger={null}
           collapsible
           collapsed={this.state.collapsed}
         >
-          <Navigation collapsed={this.state.collapsed} />
+          <Navigation theme={this.state.theme} collapsed={this.state.collapsed} />
+          <div className='switchtheme'>
+          <span><Icon type="bulb" />Switch Theme</span>
+          <Switch
+          checked={this.state.theme === 'dark'}
+          onChange={this.changeTheme}
+          checkedChildren="Dark"
+          unCheckedChildren="Light"
+        />
+          </div>
         </Sider>
         <Layout>
           <Header handler={this.handler} collapsed={this.state.collapsed} />

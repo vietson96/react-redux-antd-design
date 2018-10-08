@@ -5,7 +5,7 @@ module.exports = {
   name: 'AntD Admin',
   prefix: 'antdAdmin',
   footerText: 'Ant Design Admin  © 2018 zuiidea',
-  logo: '../assets/logo.svg',
+  logo: '../../assets/logo.svg',
   iconFontCSS: '/public/iconfont.css',
   iconFontJS: '/public/iconfont.js',
   CORS: [],

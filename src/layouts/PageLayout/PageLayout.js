@@ -32,7 +32,7 @@ class PageLayout extends React.Component {
     return (
       <Layout style={{ height: '100%' }}>
         <Sider
-          theme = {this.state.theme}
+          theme={this.state.theme}
           trigger={null}
           collapsible
           collapsed={this.state.collapsed}

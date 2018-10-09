@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { Menu, Icon, Popover, Button } from 'antd'
 import Navigation from './Navigation'
 // import 'antd/dist/antd.less'
-
 const SubMenu = Menu.SubMenu
 class Header extends React.Component {
   state = {

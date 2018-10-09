@@ -198,8 +198,8 @@ config.plugins.push(extractStyles)
 // Images
 // ------------------------------------
 config.module.rules.push({
-  test    : /\.(png|jpg|gif)$/,
-  loader  : 'url-loader',
+  test    : /\.(png|jpg|gif|svg)$/,
+  loader  : 'url-loader?limit=50000&name=[path][name].[ext]&context=./src',
   options : {
     limit : 8192,
   },

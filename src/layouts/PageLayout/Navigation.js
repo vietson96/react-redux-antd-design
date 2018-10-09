@@ -11,8 +11,8 @@ class Navigation extends React.Component {
     return (
       <div>
         <div className='logo'>
-          <img alt='logo' src='../../assets/logo.svg' />
-          {this.props.collapsed ? '' : <span>AntD Admin</span>}
+          <img alt='logo' src={config.logo} />
+          {this.props.collapsed ? '' : <span>{config.name}</span>}
         </div>
         <Menu theme={this.props.theme} mode='inline' defaultSelectedKeys={['1']}>
           <Menu.Item key='1'>

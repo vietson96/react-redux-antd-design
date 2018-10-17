@@ -1,4 +1,4 @@
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
 import axios from 'axios'
 
 import { updateAppState } from '../../../components/AppReducer'
@@ -7,39 +7,38 @@ import { showLoading, hideLoading } from '../../../components/Loading/LoadingRed
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
-export const SIGNIN_ERROR = 'SIGNIN_ERROR';
-export const SIGNIN_RUNNING = 'SIGNIN_RUNNING';
+export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS'
+export const SIGNIN_ERROR = 'SIGNIN_ERROR'
+export const SIGNIN_RUNNING = 'SIGNIN_RUNNING'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function signIn(user) {
+export function signIn (user) {
   return (dispatch, getState) => {
-
-    const {signin} = getState();
+    const { signin } = getState()
     if (!signin.isRunning) {
-      dispatch(signInRunning());
-      dispatch(showLoading());
-  
+      dispatch(signInRunning())
+      dispatch(showLoading())
+
       axios.post('/token', 'userName=' + encodeURIComponent(user.username) +
         '&password=' + encodeURIComponent(user.password) +
         '&grant_type=password',
         { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
       ).then(function (response) {
         setTimeout(() => {
-          dispatch(signInSuccess(response.data));
-          dispatch(updateAppState(response.data));
-          dispatch(hideLoading());
-          browserHistory.push('/');
-        }, 2000);
+          dispatch(signInSuccess(response.data))
+          dispatch(updateAppState(response.data))
+          dispatch(hideLoading())
+          browserHistory.push('/')
+        }, 2000)
       }).catch(function (error) {
         setTimeout(() => {
-          dispatch(signInError(error.response.data));
-          dispatch(hideLoading());
-        }, 2000);
-      });
-      
+          dispatch(signInError(error.response.data))
+          dispatch(hideLoading())
+        }, 2000)
+      })
+
       // axios.post('/token', qs.stringify({
       //     grant_type: 'password',
       //     email: user.username,
@@ -59,14 +58,13 @@ export function signIn(user) {
       //     }, 2000);
       //   });
     }
-
-  };
+  }
 }
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function signInSuccess(user) {
+export function signInSuccess (user) {
   return {
     type: SIGNIN_SUCCESS,
     user
@@ -76,7 +74,7 @@ export function signInSuccess(user) {
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function signInRunning() {
+export function signInRunning () {
   return {
     type: SIGNIN_RUNNING
   }
@@ -85,7 +83,7 @@ export function signInRunning() {
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function signInError(message) {
+export function signInError (message) {
   return {
     type: SIGNIN_ERROR,
     message
@@ -94,22 +92,22 @@ export function signInError(message) {
 
 export const actions = {
   signIn
-};
+}
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
   [SIGNIN_SUCCESS]: function (state, action) {
-    return {...state, signInErrorMessage: '', isRunning: false};
+    return { ...state, signInErrorMessage: '', isRunning: false }
   },
   [SIGNIN_ERROR]: function (state, action) {
-    return {...state, signInErrorMessage: action.message, isRunning: false};
+    return { ...state, signInErrorMessage: action.message, isRunning: false }
   },
   [SIGNIN_RUNNING]: function (state, action) {
-    return {...state, isRunning: true};
+    return { ...state, isRunning: true }
   }
-};
+}
 
 // ------------------------------------
 // Reducer
@@ -117,9 +115,9 @@ const ACTION_HANDLERS = {
 const initialState = {
   signInErrorMessage: '',
   isRunning: false
-};
-export default function signinReducer(state = initialState, action) {
-  const handler = ACTION_HANDLERS[action.type];
+}
+export default function signinReducer (state = initialState, action) {
+  const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state
 }

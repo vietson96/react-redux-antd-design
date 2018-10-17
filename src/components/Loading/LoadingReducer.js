@@ -7,17 +7,16 @@ export const HIDE_LOADING = 'HIDE_LOADING'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function showLoading() {
+export function showLoading () {
   return {
     type: SHOW_LOADING
   }
 }
 
-
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function hideLoading() {
+export function hideLoading () {
   return {
     type: HIDE_LOADING
   }
@@ -32,8 +31,8 @@ export const actions = {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [SHOW_LOADING]: (state, action) => ({...state, isloading: true }),
-  [HIDE_LOADING]: (state, action) => ({...state, isloading: false })
+  [SHOW_LOADING]: (state, action) => ({ ...state, isloading: true }),
+  [HIDE_LOADING]: (state, action) => ({ ...state, isloading: false })
 }
 
 // ------------------------------------
@@ -42,7 +41,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   isloading: false
 }
-export default function loadingReducer(state = initialState, action) {
+export default function loadingReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state

@@ -14,11 +14,11 @@ import SignIn from '../components/SignIn'
 
 const mapDispatchToProps = {
   signIn: (user) => signIn(user)
-};
+}
 
 const mapStateToProps = (state) => ({
   signin : state.signin
-});
+})
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

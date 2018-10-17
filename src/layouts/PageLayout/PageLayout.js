@@ -2,9 +2,9 @@ import React from 'react'
 import Header from './Header.js'
 import Navigation from './Navigation.js'
 import PropTypes from 'prop-types'
-import 'antd/dist/antd.less'
 import './PageLayout.scss'
 import { Layout, Icon, Switch } from 'antd'
+import { config } from "../../utils/config";
 const { Sider, Content } = Layout
 
 class PageLayout extends React.Component {
@@ -13,6 +13,7 @@ class PageLayout extends React.Component {
     this.state = { collapsed: false, theme: 'light' }
 
     this.handler = this.handler.bind(this)
+    this.changeTheme = this.changeTheme.bind(this)
   }
 
   handler (e) {
@@ -25,7 +26,7 @@ class PageLayout extends React.Component {
   changeTheme = (value) => {
     this.setState({
       theme: value ? 'dark' : 'light',
-    });
+    })
   }
 
   render () {
@@ -39,12 +40,12 @@ class PageLayout extends React.Component {
         >
           <Navigation theme={this.state.theme} collapsed={this.state.collapsed} />
           <div className='switchtheme'>
-          <span><Icon type="bulb" />Switch Theme</span>
-          <Switch
-          checked={this.state.theme === 'dark'}
-          onChange={this.changeTheme}
-          checkedChildren="Dark"
-          unCheckedChildren="Light"
+            { this.state.collapsed ? '' : <span><Icon type='bulb' /><span>Switch Theme</span></span>}
+            <Switch
+              checked={this.state.theme === 'dark'}
+              onChange={this.changeTheme}
+              checkedChildren='Dark'
+              unCheckedChildren='Light'
         />
           </div>
         </Sider>

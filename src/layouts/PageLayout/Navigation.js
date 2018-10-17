@@ -2,35 +2,58 @@ import React from 'react'
 import { Menu, Icon, Button, Layout } from 'antd'
 // const SubMenu = Menu.SubMenu
 import { config } from '../../utils/config'
+import PropTypes from 'prop-types'
+
+const SubMenu = Menu.SubMenu
+const MenuItemGroup = Menu.ItemGroup
 class Navigation extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  render () {
+  render() {
     return (
       <div>
         <div className='logo'>
-          <img alt='logo' src={config.logo} />
+          <img alt='logo' src={config.logo}/>
           {this.props.collapsed ? '' : <span>{config.name}</span>}
         </div>
-        <Menu theme={this.props.theme} mode='inline' defaultSelectedKeys={['1']}>
+        <Menu
+          theme={this.props.theme}
+          defaultSelectedKeys={['1']}
+          mode='inline'
+        >
           <Menu.Item key='1'>
-            <Icon type='user' />
+            <Icon type='user'/>
             <span>nav 1</span>
           </Menu.Item>
-          <Menu.Item key='2'>
-            <Icon type='video-camera' />
-            <span>nav 2</span>
-          </Menu.Item>
-          <Menu.Item key='3'>
-            <Icon type='upload' />
-            <span>nav 3</span>
-          </Menu.Item>
+          <SubMenu key='sub1' title={<span><Icon type='mail'/><span>Navigation One</span></span>}>
+            <MenuItemGroup key='g1' title='Item 1'>
+              <Menu.Item key='1'>Option 1</Menu.Item>
+              <Menu.Item key='2'>Option 2</Menu.Item>
+            </MenuItemGroup>
+            <MenuItemGroup key='g2' title='Item 2'>
+              <Menu.Item key='3'>Option 3</Menu.Item>
+              <Menu.Item key='4'>Option 4</Menu.Item>
+            </MenuItemGroup>
+          </SubMenu>
+          <SubMenu key='sub2' title={<span><Icon type='appstore'/><span>Navigation Two</span></span>}>
+            <Menu.Item key='5'>Option 5</Menu.Item>
+            <Menu.Item key='6'>Option 6</Menu.Item>
+            <SubMenu key='sub3' title='Submenu'>
+              <Menu.Item key='7'>Option 7</Menu.Item>
+              <Menu.Item key='8'>Option 8</Menu.Item>
+            </SubMenu>
+          </SubMenu>
+          <SubMenu key='sub4' title={<span><Icon type='setting'/><span>Navigation Three</span></span>}>
+            <Menu.Item key='9'>Option 9</Menu.Item>
+            <Menu.Item key='10'>Option 10</Menu.Item>
+            <Menu.Item key='11'>Option 11</Menu.Item>
+            <Menu.Item key='12'>Option 12</Menu.Item>
+          </SubMenu>
         </Menu>
       </div>
     )
   };
 }
-
 export default Navigation

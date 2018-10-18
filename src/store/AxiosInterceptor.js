@@ -3,14 +3,14 @@ import axios from 'axios'
 import * as constant from '../../config/config'
 import { updateAppState } from '../components/AppReducer'
 import { showLoading, hideLoading } from '../components/Loading/LoadingReducer'
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
 
 let isAbsoluteURLRegex = /^(?:\w+:)\/\//
 
 const createAxiosInterceptor = (store) => {
   // Add a request interceptor
   axios.interceptors.request.use(function (config) {
-    store.dispatch(showLoading());
+    store.dispatch(showLoading())
     // Do something before request is sent
     const { app } = store.getState()
     if (app && app.acceptToken) {
@@ -33,7 +33,7 @@ const createAxiosInterceptor = (store) => {
   }, function (error) {
     if (error.response.status === 401) {
       store.dispatch(updateAppState())
-      browserHistory.push('/signin');
+      browserHistory.push('/signin')
     }
     store.dispatch(hideLoading())
     return Promise.reject(error)

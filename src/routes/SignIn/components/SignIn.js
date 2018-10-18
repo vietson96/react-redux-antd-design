@@ -20,12 +20,6 @@ class SignIn extends React.Component {
     })
   }
 
-  handleOk = () => {
-    this.props.form.validateFieldsAndScroll((errors, values) => {
-      if (errors) { return false } else return true
-    })
-  }
-
   render () {
     const { getFieldDecorator } = this.props.form
     return (
@@ -35,7 +29,7 @@ class SignIn extends React.Component {
           <span>{config.name}</span>
         </div>
         <FormItem hasFeedback>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('username', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input prefix={<Icon type='user' style={{ color: 'rgba(0,0,0,.25)' }} />} onPressEnter={this.handleSubmit} placeholder='Username' />

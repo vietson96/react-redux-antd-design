@@ -4,13 +4,13 @@ export default (store) => {
   const authenticate = (nextState, transition) => {
     // if router not home "/" check authenticate
     if (nextState.location.pathname !== '/') {
-      let {app} = store.getState();
+      let { app } = store.getState();
       if (!app || !app.acceptToken) {
         transition('/signin');
       }
     }
   }
-  
+
   return {
     onEnter: authenticate,
     path : 'products',
@@ -23,13 +23,13 @@ export default (store) => {
          dependencies for bundling   */
         const Product = require('./containers/ProductContainer').default
         const reducer = require('./modules/product').default
-      
+
         /*  Add the reducer to the store on key 'product'  */
         injectReducer(store, { key: 'product', reducer })
-      
+
         /*  Return getComponent   */
         cb(null, Product)
-      
+
         /* Webpack named bundle   */
       }, 'product')
     }

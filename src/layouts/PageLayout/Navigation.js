@@ -16,11 +16,7 @@ class Navigation extends React.Component {
   onOpenChange = (openKeys) => {
     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1)
     if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      if (this.props.collapsed) {
-        this.setState(null)
-      } else {
-        this.setState({ openKeys })
-      }
+      this.setState({ openKeys })
     } else {
       this.setState({
         openKeys: latestOpenKey ? [latestOpenKey] : [],
@@ -38,8 +34,9 @@ class Navigation extends React.Component {
         <Menu
           theme={this.props.theme}
           defaultSelectedKeys={['1']}
+          // onOpenChange={this.onOpenChange}
+          // openKeys={this.state.openKeys}
           mode='inline'
-          onOpenChange={this.onOpenChange}
         >
           <Menu.Item key='1'>
             <Icon type='user' />

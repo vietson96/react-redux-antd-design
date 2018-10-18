@@ -1,6 +1,7 @@
 import React from 'react'
-import { Menu, Icon } from 'antd'
+import { Menu, Icon, Dropdown, Avatar } from 'antd'
 const SubMenu = Menu.SubMenu
+import './Header.scss'
 class Header extends React.Component {
   constructor (props) {
     super(props)
@@ -9,33 +10,36 @@ class Header extends React.Component {
 
   render () {
     const { collapsed, handler } = { ...this.props }
+    const menu = (
+      <Menu className='' selectedKeys={[]}>
+        <Menu.Item key='userCenter'>
+          <Icon type='user' />
+          <span>User Info</span>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key='logout'>
+          <Icon type='logout' />
+          <span>Log Out</span>
+        </Menu.Item>
+      </Menu>)
     return (
-      <div>
-
-        <Menu
-          onClick={this.handleClick}
-          selectedKeys={[this.state.current]}
-          mode='horizontal' >
-          <Menu.Item className='trigger'>
-            <Icon
-              type={collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={handler}
+      <div className='header'>
+        <Icon
+          className='trigger'
+          type={collapsed ? 'menu-unfold' : 'menu-fold'}
+          onClick={handler}
             />
-          </Menu.Item>
-          <SubMenu
-            style={{
-              float: 'right',
-            }}
-            title={<span>
-              <Icon type='user' />
-            abc
-            </span>}
-        >
-            <Menu.Item key='logout'>
-            Sign out
-            </Menu.Item>
-          </SubMenu>
-        </Menu>
+        <Dropdown overlay={menu}>
+          <span className='right'>
+            <Avatar
+              size='small'
+              className='avatar'
+              src=''
+              alt='avatar'
+              />
+            <span className=''>abc</span>
+          </span>
+        </Dropdown>
       </div>
     )
   };

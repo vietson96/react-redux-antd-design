@@ -4,6 +4,7 @@ const APIV2 = '/api/v2'
 module.exports = {
   config: {
     name: 'AntD Admin',
+    changeTheme: 'Switch Theme',
     prefix: 'antdAdmin',
     footerText: 'Ant Design Admin  © 2018 zuiidea',
     logo: 'https://s.cdpn.io/3/kiwi.svg',

@@ -11,7 +11,7 @@ class Loading extends React.Component {
   render () {
     return (
       <div className={'loader' + (this.props.loading.isloading ? '' : ' loaded')}>
-        <Spin className='spin' tip='Loading...' size='large' spinning={this.props.loading.isloading} />
+        <Spin className='spin' tip='Loading...' size='large' delay='5' />
       </div>
     )
   }

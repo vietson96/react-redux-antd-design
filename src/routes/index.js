@@ -13,13 +13,13 @@ export const createRoutes = (store) => {
   const authenticate = (nextState, transition) => {
     // if router not home "/" check authenticate
     if (nextState.location.pathname !== '/') {
-      let {app} = store.getState();
+      let { app } = store.getState()
       if (!app || !app.acceptToken) {
-        transition('/signin');
+        transition('/signin')
       }
     }
   }
-  
+
   return [
     {
       path: '/',

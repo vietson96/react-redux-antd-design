@@ -14,7 +14,6 @@ export function updateAppState(userData) {
   }
 }
 
-
 export const actions = {
   updateAppState
 }

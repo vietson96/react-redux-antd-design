@@ -40,7 +40,7 @@ class PageLayout extends React.Component {
         >
           <Navigation theme={this.state.theme} collapsed={this.state.collapsed} />
           <div className='switchtheme'>
-            { this.state.collapsed ? '' : <span><Icon type='bulb' /><span>Switch Theme</span></span>}
+            { this.state.collapsed ? '' : <span><Icon type='bulb' /><span>{config.changeTheme}</span></span>}
             <Switch
               checked={this.state.theme === 'dark'}
               onChange={this.changeTheme}

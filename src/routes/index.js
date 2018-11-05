@@ -12,11 +12,17 @@ import SignInRoute from './SignIn'
 export const createRoutes = (store) => {
   const authenticate = (nextState, transition) => {
     // if router not home "/" check authenticate
-    if (nextState.location.pathname !== '/') {
-      let { app } = store.getState()
-      if (!app || !app.acceptToken) {
-        transition('/signin')
-      }
+    // if (nextState.location.pathname !== '/') {
+    let { app } = store.getState()
+    if (!app || !app.acceptToken) {
+      transition('/signin')
+    }
+  }
+
+  const checkAuthenticateSigninPage = (nextState, transition) => {
+    let { app } = store.getState()
+    if (app && app.acceptToken) {
+      transition('/')
     }
   }
 
@@ -34,6 +40,7 @@ export const createRoutes = (store) => {
     {
       path: '/signin',
       component: CommonLayout,
+      onEnter: checkAuthenticateSigninPage,
       indexRoute: SignInRoute(store)
     }
   ]

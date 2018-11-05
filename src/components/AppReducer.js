@@ -3,11 +3,12 @@
 // ------------------------------------
 export const RESET_APP_STATE = 'RESET_APP_STATE'
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE'
+export const LOG_OUT = 'LOG_OUT'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function updateAppState(userData) {
+export function updateAppState (userData) {
   return {
     type: UPDATE_APP_STATE,
     userData
@@ -18,16 +19,30 @@ export const actions = {
   updateAppState
 }
 
+export function logOut () {
+  return {
+    type: LOG_OUT
+  }
+}
+
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [RESET_APP_STATE]: (state, action) => ({
-    ...state,
-    acceptToken: action.payload && action.payload.acceptToken ? action.payload.acceptToken : null,
-    refreshToken: action.payload && action.payload.refreshToken ? action.payload.refreshToken : null,
-    userData: action.payload && action.payload.userData ? action.payload.userData : {}
-  }),
+  [RESET_APP_STATE]: (state, action) => {
+    return {
+      ...state,
+      acceptToken: action.payload && action.payload.acceptToken ? action.payload.acceptToken : null,
+      refreshToken: action.payload && action.payload.refreshToken ? action.payload.refreshToken : null,
+      userData: action.payload && action.payload.userData ? action.payload.userData : {}
+    }
+  },
+  [LOG_OUT]: () => {
+    localStorage.removeItem('admin')
+    return {
+      ...initialState,
+    }
+  },
   [UPDATE_APP_STATE]: (state, action) => ({
     ...state,
     acceptToken: action.userData && action.userData.access_token ? action.userData.access_token : null,
@@ -44,7 +59,7 @@ const initialState = {
   refreshToken: null,
   userData: {}
 }
-export default function appReducer(state = initialState, action) {
+export default function appReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
   return handler ? handler(state, action) : state

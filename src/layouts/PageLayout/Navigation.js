@@ -1,9 +1,11 @@
 import React from 'react'
 import { Menu, Icon, Button, Layout } from 'antd'
 import { config } from '../../utils/config'
+import { Link } from 'react-router'
 
 const SubMenu = Menu.SubMenu
 const MenuItemGroup = Menu.ItemGroup
+
 class Navigation extends React.Component {
   constructor (props) {
     super(props)
@@ -11,6 +13,7 @@ class Navigation extends React.Component {
       openKeys: ['sub1'],
     }
   }
+
   rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
 
   onOpenChange = (openKeys) => {
@@ -39,8 +42,7 @@ class Navigation extends React.Component {
           mode='inline'
         >
           <Menu.Item key='1'>
-            <Icon type='user' />
-            <span>nav 1</span>
+            <Link to='/counter'><Icon type='user' /><span>Counter</span></Link>
           </Menu.Item>
           <SubMenu key='sub1' title={<span><Icon type='mail' /><span>Navigation One</span></span>}>
             <MenuItemGroup key='g1' title='Item 1'>
@@ -71,4 +73,5 @@ class Navigation extends React.Component {
     )
   };
 }
+
 export default Navigation

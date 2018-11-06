@@ -3,7 +3,7 @@ import { Menu, Icon, Dropdown, Avatar } from 'antd'
 import './Header.scss'
 import { connect } from 'react-redux'
 import { logOut } from '../../components/AppReducer'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 
 const SubMenu = Menu.SubMenu
 
@@ -23,8 +23,10 @@ class Header extends React.Component {
     const menu = (
       <Menu className='' selectedKeys={[]}>
         <Menu.Item key='userCenter'>
-          <Icon type='user' />
-          <span>User Info</span>
+          <Link to='/profile'>
+            <Icon type='user' />
+            <span>User Info</span>
+          </Link>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key='logout' onClick={() => {

@@ -4,6 +4,7 @@ import CommonLayout from '../layouts/CommonLayout/CommonLayout'
 import Home from './Home'
 import CounterRoute from './Counter'
 import ProductRoute from './Product'
+import ProfileRoute from './Profile'
 import SignInRoute from './SignIn'
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -34,7 +35,8 @@ export const createRoutes = (store) => {
       indexRoute: Home,
       childRoutes: [
         CounterRoute(store),
-        ProductRoute(store)
+        ProductRoute(store),
+        ProfileRoute(store),
       ]
     },
     {

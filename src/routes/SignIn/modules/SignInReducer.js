@@ -126,7 +126,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = {
   signInErrorMessage: '',
-  isRunning: false
+  isRunning: false,
 }
 export default function signinReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

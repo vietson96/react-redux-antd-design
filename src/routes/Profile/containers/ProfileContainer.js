@@ -4,11 +4,13 @@ import { increment } from '../modules/profile'
 import Profile from '../components/Profile'
 
 const mapDispatchToProps = {
-  increment : () => increment(1)
+
+  increment: () => {
+    return increment(1)
+  }
 }
 
 const mapStateToProps = (state) => {
-  debugger
   return ({
     profile: state.profile
   })

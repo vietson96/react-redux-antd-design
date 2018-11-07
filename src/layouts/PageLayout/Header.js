@@ -53,7 +53,10 @@ class Header extends React.Component {
               src=''
               alt='avatar'
             />
-            <span className=''>abc</span>
+            <span style={{ color: '#999', marginRight: 4 }}>
+                Hi,
+            </span>
+            <span className=''>{this.props.name}</span>
           </span>
         </Dropdown>
       </div>
@@ -61,4 +64,6 @@ class Header extends React.Component {
   };
 }
 
-export default connect()(Header)
+export default connect((state) => ({
+  name : state.app.userData.fullName
+}))(Header)

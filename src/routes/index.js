@@ -5,6 +5,7 @@ import Home from './Home'
 import CounterRoute from './Counter'
 import ProductRoute from './Product'
 import ProfileRoute from './Profile'
+import SystemManageRoute from './SystemManage'
 import SignInRoute from './SignIn'
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -37,6 +38,7 @@ export const createRoutes = (store) => {
         CounterRoute(store),
         ProductRoute(store),
         ProfileRoute(store),
+        SystemManageRoute(store),
       ]
     },
     {

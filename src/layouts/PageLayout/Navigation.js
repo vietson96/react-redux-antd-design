@@ -44,6 +44,9 @@ class Navigation extends React.Component {
           <Menu.Item key='1'>
             <Link to='/counter'><Icon type='user' /><span>Counter</span></Link>
           </Menu.Item>
+          <Menu.Item key='2'>
+            <Link to='/systems'><Icon type='user' /><span>System Manage</span></Link>
+          </Menu.Item>
           <SubMenu key='sub1' title={<span><Icon type='mail' /><span>Navigation One</span></span>}>
             <MenuItemGroup key='g1' title='Item 1'>
               <Menu.Item key='1'>Option 1</Menu.Item>

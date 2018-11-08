@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Divider, Button, Pagination } from 'antd'
+import { Table, Divider, Button, Pagination, Row } from 'antd'
 import axios from 'axios'
 
 const columns = [{
@@ -43,14 +43,14 @@ class SystemManage extends React.Component {
 
   handleTableChange = (current, pageSize, filters) => {
     const pager = { ...this.state.pagination }
-    pager.current = current
+    pager.current = current - 1
     pager.pageSize = pageSize
     this.setState({
       pagination: pager,
     })
     this.fetch({
       pageSize: pageSize,
-      pageIndex: current,
+      pageIndex: current - 1,
       ...filters,
     })
   }
@@ -88,20 +88,24 @@ class SystemManage extends React.Component {
         <Button style={{ margin: '16px 0', right: 5 }}>
           Sửa
         </Button>
-        <Table style={{ padding: 24, background: '#fff', minHeight: 360 }}
+        <Table size='middle' style={{ padding: 24, background: '#fff', Height: '100%' }}
           columns={columns}
           rowKey={record => record.id}
           dataSource={this.state.data}
           pagination={false}
           onChange={this.handleTableChange}
         />
-        <Pagination style={{ padding: 24, background: '#fff', minHeight: 360 }}
-          onShowSizeChange={this.handleTableChange}
-          showSizeChanger
-          showQuickJumper
-          defaultCurrent={0}
-          // pageSizeOptions={[2, 5, 10, 100]}
-          total={this.state.pagination.total} />
+        <Row justify={'end'}>
+          <Pagination style={{ padding: 24, background: '#fff' }}
+            onShowSizeChange={this.handleTableChange}
+            showSizeChanger
+            showQuickJumper
+            defaultCurrent={0}
+            pageSizeOptions={['2', '5', '10', '100']}
+            onChange={this.handleTableChange}
+            total={this.state.pagination.total} />
+
+        </Row>
       </div>
 
     )

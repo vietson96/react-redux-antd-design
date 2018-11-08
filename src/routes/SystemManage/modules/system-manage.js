@@ -12,7 +12,6 @@ export function increment (value = 1) {
   return (dispatch, getState) => {
     axios.get(`/systems`)
       .then(function (response) {
-        debugger
         console.log(response.data)
         dispatch(getSystemSuccess(response.data))
         return response.data

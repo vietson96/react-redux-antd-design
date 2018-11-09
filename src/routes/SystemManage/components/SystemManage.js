@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { Table, Divider, Button, Pagination, Row, Input } from 'antd'
-import { Modal } from 'antd'
+import { Table, Divider, Button, Pagination, Row, Input, Icon, Modal } from 'antd'
 
 const confirm = Modal.confirm
 const Search = Input.Search
@@ -10,25 +9,24 @@ const columns = [{
   title: 'System Name',
   dataIndex: 'name',
   sorter: true,
-  width: '20%',
+  width: '30%',
 }, {
   title: 'Group Name',
   dataIndex: 'group',
-  width: '20%',
+  width: '30%',
 }, {
   title: 'Group Code',
   dataIndex: 'groupCode',
-  width: '20%',
+  width: '30%',
 }, {
   title: 'Action',
-  key: 'action',
+  align: 'right',
   render: (text, record) => {
-    debugger
     return (
       <span>
-        <Link to={`systems/detail`}>Invite</Link>
+        <Link to={`systems/detail`}><Icon size={'large'} type='edit' /></Link>
         <Divider type='vertical' />
-        <Button onClick={() => showDeleteConfirm(record.id)}>Delete</Button>
+        <Icon size={'large'} type='delete' onClick={() => showDeleteConfirm(record.id)} />
       </span>
     )
   }
@@ -61,7 +59,6 @@ class List extends React.Component {
   }
 
   fetch = (params = {}) => {
-    debugger
     let paramRequet = {
       pageIndex: params.pageIndex,
       pageSize: params.pageSize,
@@ -98,6 +95,8 @@ class List extends React.Component {
         <Row justify={'end'}>
           <Pagination style={{ padding: 24, background: '#fff' }}
             onShowSizeChange={this.handleTableChange}
+            size={'small'}
+            indentSize={200}
             showSizeChanger
             showQuickJumper
             defaultCurrent={0}

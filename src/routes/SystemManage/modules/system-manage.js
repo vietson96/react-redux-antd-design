@@ -8,18 +8,22 @@ export const GET_SYSTEM_LIST_SUCCESS = 'GET_SYSTEM_LIST_SUCCESS'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function increment (value = 1) {
+export function getList (params) {
   return (dispatch, getState) => {
-    axios.get(`/systems`)
-      .then(function (response) {
-        console.log(response.data)
-        dispatch(getSystemSuccess(response.data))
-        return response.data
-      }).catch(function (error) {
-        console.log(error)
-      })
+    axios({
+      method: 'get',
+      url: '/systems',
+      params: params
+    }).then(function (response) {
+      console.log(response.data)
+      dispatch(getSystemSuccess(response.data))
+      return response.data
+    }).catch(function (error) {
+      console.log(error)
+    })
   }
 }
+
 
 // ------------------------------------
 // Actions
@@ -32,7 +36,7 @@ export function getSystemSuccess (systems) {
 }
 
 export const actions = {
-  increment
+  getList
 }
 
 // ------------------------------------

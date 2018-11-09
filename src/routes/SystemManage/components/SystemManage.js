@@ -1,6 +1,10 @@
 import React from 'react'
-import { Table, Divider, Button, Pagination, Row } from 'antd'
-import axios from 'axios'
+import { Link } from 'react-router'
+import { Table, Divider, Button, Pagination, Row, Input } from 'antd'
+import { Modal } from 'antd'
+
+const confirm = Modal.confirm
+const Search = Input.Search
 
 const columns = [{
   title: 'System Name',
@@ -18,80 +22,76 @@ const columns = [{
 }, {
   title: 'Action',
   key: 'action',
-  render: (text, record) => (
-    <span>
-      <a href='javascript:;'>Invite {record.name}</a>
-      <Divider type='vertical' />
-      <a href='javascript:;'>Delete</a>
-    </span>
-  ),
+  render: (text, record) => {
+    debugger
+    return (
+      <span>
+        <Link to={`systems/detail`}>Invite</Link>
+        <Divider type='vertical' />
+        <Button onClick={() => showDeleteConfirm(record.id)}>Delete</Button>
+      </span>
+    )
+  }
 }]
 
-class SystemManage extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      data: [],
-      pagination: {},
-      loading: false,
-    }
-  }
+function showDeleteConfirm (id) {
+  confirm({
+    title: 'Are you sure delete this task?',
+    content: 'Some descriptions',
+    okText: 'Yes',
+    okType: 'danger',
+    cancelText: 'No',
+    onOk () {
+      console.log('OK')
+    },
+  })
+}
 
+class List extends React.Component {
   componentDidMount () {
-    this.fetch()
+    this.props.getList()
   }
 
   handleTableChange = (current, pageSize, filters) => {
-    const pager = { ...this.state.pagination }
-    pager.current = current - 1
-    pager.pageSize = pageSize
-    this.setState({
-      pagination: pager,
-    })
     this.fetch({
+      pageIndex: current > 0 ? current - 1 : 0,
       pageSize: pageSize,
-      pageIndex: current - 1,
       ...filters,
     })
   }
 
   fetch = (params = {}) => {
+    debugger
     let paramRequet = {
       pageIndex: params.pageIndex,
-      pageSize: params.pageSize
+      pageSize: params.pageSize,
+      textSearch: params.textSearch || ''
     }
     if (params.column) {
       paramRequet.sortField = params.column.dataIndex
       paramRequet.orderDescending = params.column.sorter
     }
-    this.setState({ loading: true })
-    axios({
-      method: 'get',
-      url: '/systems',
-      params: paramRequet
-    }).then((data) => {
-      const pagination = { ...this.state.pagination }
-      // Read total count from server
-      // pagination.total = data.totalCount;
-      pagination.total = data.data.total
-      this.setState({
-        loading: false,
-        data: data.data.systems,
-        pagination,
-      })
-    })
+    this.props.getList(paramRequet)
   }
 
   render () {
+    let systems = this.props.systems.systems
     return (
       <div style={{ margin: '0 16px' }}>
         <Button style={{ margin: '16px 0', right: 5 }}>
           Sửa
         </Button>
+        <Search
+          placeholder='input search text'
+          size='large'
+          onSearch={(value) => this.fetch({
+            textSearch: value,
+          })}
+        />
         <Table size='middle' style={{ padding: 24, background: '#fff', Height: '100%' }}
           columns={columns}
           rowKey={record => record.id}
-          dataSource={this.state.data}
+          dataSource={systems.systems}
           pagination={false}
           onChange={this.handleTableChange}
         />
@@ -103,7 +103,7 @@ class SystemManage extends React.Component {
             defaultCurrent={0}
             pageSizeOptions={['2', '5', '10', '100']}
             onChange={this.handleTableChange}
-            total={this.state.pagination.total} />
+            total={systems.total} />
 
         </Row>
       </div>
@@ -112,4 +112,4 @@ class SystemManage extends React.Component {
   }
 }
 
-export default SystemManage
+export default List

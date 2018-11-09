@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
-import { increment } from '../modules/system-manage'
+import { getList } from '../modules/system-manage'
 
 import SystemManage from '../components/SystemManage'
 
 const mapDispatchToProps = {
 
-  increment: () => {
-    return increment(1)
+  getList: (params) => {
+    return getList(params)
   }
 }
 

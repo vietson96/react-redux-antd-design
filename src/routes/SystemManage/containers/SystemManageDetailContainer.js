@@ -1,14 +1,8 @@
 import { connect } from 'react-redux'
-import { create, getDetail, getList, save } from '../modules/system-manage'
-
-import SystemManage from '../components/SystemManage'
+import { create, getDetail, save } from '../modules/system-manage'
+import Detail from '../components/detail/Detail'
 
 const mapDispatchToProps = {
-
-  getList: (params) => {
-    return getList(params)
-  },
-
   getDetail: (id) => {
     return getDetail(id)
   },
@@ -28,4 +22,4 @@ const mapStateToProps = (state) => {
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SystemManage)
+export default connect(mapStateToProps, mapDispatchToProps)(Detail)

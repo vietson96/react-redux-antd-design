@@ -1,5 +1,6 @@
 import { injectReducer } from '../../store/reducers'
 import DetailRoute from './components/detail'
+import SystemManageDetailContainer from './containers/SystemManageDetailContainer'
 
 export default (store) => {
   const authenticate = (nextState, transition) => {
@@ -25,7 +26,7 @@ export default (store) => {
           const reducer = require('../SystemManage/modules/system-manage').default
 
           /*  Add the reducer to the store on key 'product'  */
-          // Inject system reducer. define state when page called
+          // Inject system reducer define state when page called
           injectReducer(store, { key: 'systems', reducer })
 
           /*  Return getComponent   */
@@ -36,7 +37,33 @@ export default (store) => {
       },
     },
     childRoutes: [
-      DetailRoute(store),
+      // DetailRoute(store),
+      {
+        path: 'detail/:id',
+        getComponent (nextState, cb) {
+          /*  Webpack - use 'require.ensure' to create a split point
+           and embed an async module loader (jsonp) when bundling   */
+          require.ensure([], (require) => {
+            /*  Webpack - use require callback to define
+             dependencies for bundling   */
+            const SystemDetail = require('../SystemManage/containers/SystemManageDetailContainer').default
+            const reducer = require('../SystemManage/modules/system-manage').default
+
+            /*  Add the reducer to the store on key 'product'  */
+            // Inject system reducer define state when page called
+            injectReducer(store, { key: 'systems', reducer })
+
+            /*  Return getComponent   */
+            cb(null, SystemDetail)
+
+            /* Webpack named bundle   */
+          }, 'systems')
+        },
+      },
+      {
+        path: 'new',
+        component: SystemManageDetailContainer
+      }
     ]
   }
 }

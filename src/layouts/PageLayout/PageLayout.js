@@ -52,7 +52,9 @@ class PageLayout extends React.Component {
         <Layout>
           <Header handler={this.handler} collapsed={this.state.collapsed} />
           <Content>
-            {this.props.children}
+            <div className='contentInner'>
+              {this.props.children}
+            </div>
           </Content>
         </Layout>
       </Layout>

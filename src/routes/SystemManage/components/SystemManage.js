@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { Table, Divider, Button, Pagination, Row, Input, Icon, Modal } from 'antd'
+import axios from 'axios/index'
+import { message } from 'antd/lib/index'
 
 const confirm = Modal.confirm
 const Search = Input.Search
@@ -24,7 +26,7 @@ const columns = [{
   render: (text, record) => {
     return (
       <span>
-        <Link to={`systems/detail`}><Icon size={'large'} type='edit' /></Link>
+        <Link to={`systems/detail/${record.id}`}><Icon size={'large'} type='edit' /></Link>
         <Divider type='vertical' />
         <Icon size={'large'} type='delete' onClick={() => showDeleteConfirm(record.id)} />
       </span>
@@ -32,7 +34,7 @@ const columns = [{
   }
 }]
 
-function showDeleteConfirm (id) {
+function showDeleteConfirm (id, transition) {
   confirm({
     title: 'Are you sure delete this task?',
     content: 'Some descriptions',
@@ -40,12 +42,20 @@ function showDeleteConfirm (id) {
     okType: 'danger',
     cancelText: 'No',
     onOk () {
+      axios({
+        method: 'delete',
+        url: `/systems/${id}`,
+      }).then(function (response) {
+        message.success(response.data.result)
+      }).catch(function (error) {
+        message.error(error)
+      })
       console.log('OK')
     },
   })
 }
 
-class List extends React.Component {
+class SystemManage extends React.Component {
   componentDidMount () {
     this.props.getList()
   }
@@ -75,9 +85,11 @@ class List extends React.Component {
     let systems = this.props.systems.systems
     return (
       <div style={{ margin: '0 16px' }}>
-        <Button style={{ margin: '16px 0', right: 5 }}>
-          Sửa
-        </Button>
+        <Link to={'/systems/new'}>
+          <Button style={{ margin: '16px 0', right: 5 }}>
+          Thêm mới
+          </Button>
+        </Link>
         <Search
           placeholder='input search text'
           size='large'
@@ -106,9 +118,8 @@ class List extends React.Component {
 
         </Row>
       </div>
-
     )
   }
 }
 
-export default List
+export default SystemManage

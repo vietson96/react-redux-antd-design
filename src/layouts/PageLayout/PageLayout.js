@@ -1,10 +1,12 @@
 import React from 'react'
 import Header from './Header.js'
 import Navigation from './Navigation.js'
+import Bread from './Bread.js'
 import PropTypes from 'prop-types'
 import './PageLayout.scss'
 import { Layout, Icon, Switch } from 'antd'
-import { config } from "../../utils/config";
+import { config } from '../../utils/config'
+import ScrollBar from '../ScrollBar'
 const { Sider, Content } = Layout
 
 class PageLayout extends React.Component {
@@ -35,8 +37,10 @@ class PageLayout extends React.Component {
         <Sider
           theme={this.state.theme}
           trigger={null}
+          width={256}
           collapsible
           collapsed={this.state.collapsed}
+          className='sider'
         >
           <Navigation theme={this.state.theme} collapsed={this.state.collapsed} />
           <div className='switchtheme'>
@@ -51,11 +55,15 @@ class PageLayout extends React.Component {
         </Sider>
         <Layout>
           <Header handler={this.handler} collapsed={this.state.collapsed} />
-          <Content>
-            <div className='contentInner'>
-              {this.props.children}
-            </div>
-          </Content>
+          <ScrollBar>
+            <Content className='content'>
+              <Bread />
+              <div className='contentInner'>
+                {this.props.children}
+              </div>
+            </Content>
+          </ScrollBar>
+
         </Layout>
       </Layout>
     )

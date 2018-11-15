@@ -107,7 +107,7 @@ class SystemManage extends React.Component {
         <Row justify={'end'}>
           <Pagination style={{ padding: 24, background: '#fff' }}
             onShowSizeChange={this.handleTableChange}
-            size={'small'}
+            size={'medium'}
             indentSize={200}
             showSizeChanger
             showQuickJumper

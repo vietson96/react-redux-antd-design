@@ -18,46 +18,15 @@
   color: #1890ff;
 }
 
-.logo {
-  height: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 40px;
-    margin-right: 8px;
-  }
-
-  span {
-    vertical-align: text-bottom;
-    font-size: 16px;
-    text-transform: uppercase;
-    display: inline-block;
-    font-weight: 700;
-    color:  #1890ff;
-    white-space: nowrap;
-    :local {
-      animation: fadeLeftIn 500ms linear;
-      animation-fill-mode: both;
-    }
-  }
-}
 .switchtheme {
   width: 100%;
-  position: absolute;
-  bottom: 0;
   height: 48px;
-  background-color: #fff;
-  border-top: solid 1px #f8f8f8;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   overflow: hidden;
-  z-index: 9;
   transition: all 0.3s;
-  position: fixed;
 
   span {
     white-space: nowrap;
@@ -77,14 +46,89 @@
 .contentInner {
   background: #fff;
   padding: 24px;
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 115px);
   position: relative;
 }
 
 @media (max-width: 767px) {
   .contentInner {
     padding: 12px;
-    min-height: calc(100vh - 112px);
+    min-height: calc(100vh - 115px);
   }
 }
+.content {
+  padding: 24px;
+  padding-top: 72px;
+  min-height: calc(100% - 72px);
+}
+
+.sider {
+  z-index: 10;
+  :global {
+    .ant-layout-sider-children {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}
+
+.brand {
+  z-index: 1;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  box-shadow: 0 1px 9px -3px rgba(0, 0, 0, 0.2);
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 36px;
+      margin-right: 8px;
+    }
+
+    h1 {
+      vertical-align: text-bottom;
+      font-size: 16px;
+      text-transform: uppercase;
+      display: inline-block;
+      font-weight: 700;
+      white-space: nowrap;
+      margin-bottom: 0;
+
+      :local {
+        animation: fadeRightIn 300ms ease-in-out;
+        animation-fill-mode: both;
+      }
+    }
+  }
+}
+
+.menuContainer {
+  height: calc(100vh - 120px);
+  overflow-x: hidden;
+  flex: 1;
+  padding: 24px 0;
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  :global {
+    .ant-menu-inline {
+      border-right: none;
+    }
+  }
+}
+
 

@@ -39,24 +39,23 @@ class Header extends React.Component {
         </Menu.Item>
       </Menu>)
     return (
-      <div className='header'>
-        <Icon
-          className='trigger'
-          type={collapsed ? 'menu-unfold' : 'menu-fold'}
-          onClick={handler}
-        />
-        <Dropdown overlay={menu}>
-          <span className='right'>
+      <div className={'header fixed ' + (collapsed ? 'collapsed' : '')}>
+        <div className='button' onClick={handler}>
+          <Icon
+            type={collapsed ? 'menu-unfold' : 'menu-fold'} />
+        </div>
+        <Dropdown overlay={menu} className='rightContainer'>
+          <span>
             <Avatar
-              size='small'
+              size='medium'
               className='avatar'
               src=''
               alt='avatar'
             />
-            <span style={{ color: '#999', marginRight: 4 }}>
+            <span style={{ color: '#999', marginRight: 10 }}>
                 Hi,
             </span>
-            <span className=''>{this.props.name}</span>
+            <span style={{ color: '#999', marginRight: 50 }} className=''>{this.props.name}</span>
           </span>
         </Dropdown>
       </div>

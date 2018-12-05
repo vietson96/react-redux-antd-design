@@ -6,8 +6,7 @@ import { message } from 'antd/lib/index'
 
 const confirm = Modal.confirm
 const Search = Input.Search
-
-const columns = [{
+var columns = [{
   title: 'System Name',
   dataIndex: 'name',
   sorter: true,
@@ -46,6 +45,7 @@ function showDeleteConfirm (id, transition) {
         method: 'delete',
         url: `/systems/${id}`,
       }).then(function (response) {
+        this.dataSubscription
         message.success(response.data.result)
       }).catch(function (error) {
         message.error(error)
@@ -56,6 +56,9 @@ function showDeleteConfirm (id, transition) {
 }
 
 class SystemManage extends React.Component {
+  constructor (props) {
+    super(props)
+  }
   componentDidMount () {
     this.props.getList()
   }
@@ -81,13 +84,22 @@ class SystemManage extends React.Component {
     this.props.getList(paramRequet)
   }
 
+  // var
+  // dataSubscription = Rx.Observable.merge(
+  //
+  // ).fetch({
+  //   pageIndex: current > 0 ? current - 1 : 0,
+  //   pageSize: pageSize,
+  //   ...filters,
+  // });
+
   render () {
     let systems = this.props.systems.systems
     return (
       <div style={{ margin: '0 16px' }}>
         <Link to={'/systems/new'}>
           <Button style={{ margin: '16px 0', right: 5 }}>
-          Thêm mới
+            Thêm mới
           </Button>
         </Link>
         <Search

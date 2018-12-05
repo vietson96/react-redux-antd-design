@@ -83,7 +83,6 @@ class Detail extends React.Component {
       if (this.props.routeParams.id) {
         save(data)
       } else {
-        debugger
         create(data)
       }
     }
